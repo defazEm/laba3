@@ -2,7 +2,6 @@
 
 using namespace std;
 
-
 class Shape
 {
 public:
@@ -10,11 +9,6 @@ public:
 	virtual ~Shape() {}
 
 	virtual const string& type() const { return _type; }
-	virtual bool intersect(const Shape* other) const
-	{
-		cout << "is " << type() << " intersecet " << other->type() << endl;
-		return 0;
-	}
 
 protected:
 	string _type;
@@ -24,36 +18,23 @@ class Circle : public Shape
 {
 public:
 	Circle() : Shape("circle") {}
-
-	bool intersect(const Shape* other) const
-	{
-		Shape::intersect(other);
-		return false;
-	}
 };
 
 class Square : public Shape
 {
 public:
 	Square() : Shape("square") {}
-
-	bool intersect(const Shape* other) const
-	{
-		Shape::intersect(other);
-		return false;
-	}
 };
 
 class Triangle : public Shape
 {
 public:
 	Triangle() : Shape("triangle") {}
+};
 
-	bool intersect(const Shape* other) const
-	{
-		Shape::intersect(other);
-		return false;
-	}
+void intersect(Shape* shape1, Shape* shape2)
+{
+	cout << "is " << shape1->type() << " intersecet " << shape2->type() << endl;
 };
 
 int main()
@@ -62,8 +43,8 @@ int main()
 	Shape* square = new Square;
 	Shape* triangle = new Triangle;
 
-	circle->intersect(square);
-	triangle->intersect(circle);
+	intersect(circle, square);
+	intersect(triangle, circle);
 
 	delete circle;
 	delete square;
